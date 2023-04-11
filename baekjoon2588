@@ -1,0 +1,29 @@
+const fs = require("fs");
+let input = fs.readFileSync("/dev/stdin").toString().split("\n");
+input = input.map((item) => +item);
+
+solution(input[0], input[1]);
+
+function solution(A, B) {
+  console.log(A * (B % 10));
+  console.log(A * Math.floor((B % 100) / 10));
+  console.log(A * Math.floor(B / 100));
+  console.log(A * B);
+}
+
+// const fs = require("fs");
+// let input = fs.readFileSync("/dev/stdin").toString().split("\n");
+// input = input.map((item) => +item);
+
+// solution(input[0], input[1]);
+
+// function solution(A,B){
+//   const stringB = String(B);
+//   const ill = +stringB[2];
+//   const sip = +stringB[1];
+//   const baek = +stringB[0];
+//   console.log(A*ill);
+//   console.log(A*sip);
+//   console.log(A*baek);
+//   console.log(A*B);
+//   }
