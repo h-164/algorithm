@@ -1,16 +1,19 @@
-const rl = require('readline').createInterface(process.stdin);
+const fs = require("fs");
+let input = fs.readFileSync("/dev/stdin").toString().split("\n");
+input = input[0];
+input = input.split(" ").map((item) => +item);
 
-rl.on('line', (input)=>{
-    let hour = parseInt(input.split(' ')[0]);
-    let minute = parseInt(input.split(' ')[1])-45;
+solution(input[0], input[1]);
 
-    if (minute<0) {
-        hour -= 1;
-        minute = 60+minute;
-        if (hour<0) hour = 24+hour
-    }
-    console.log(hour, minute);
+function solution(H, M) {
+  M -= 45;
 
-    rl.close();
-});
-
+  if (M < 0) {
+    M += 60;
+    H -= 1;
+  }
+  if (H < 0) {
+    H = 23;
+  }
+  console.log(H, M);
+}
