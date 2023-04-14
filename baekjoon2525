@@ -1,0 +1,27 @@
+const fs = require("fs");
+let input = fs.readFileSync("/dev/stdin").toString().split("\n");
+ 
+let inputHour = input[0].split(" ")[0];
+let inputMin = input[0].split(" ")[1];
+let inputTime = input[1];
+ 
+solution(+inputHour, +inputMin, +inputTime);
+ 
+function solution(A, B, C) {
+  A += parseInt(C / 60);
+  B += C % 60;
+ 
+  while (true) {
+    if (A < 24 && B < 60) {
+      break;
+    }
+ 
+    if (A >= 24) {
+      A -= 24;
+    } else {
+      B -= 60;
+      A += 1;
+    }
+  }
+  console.log(A, B);
+}
