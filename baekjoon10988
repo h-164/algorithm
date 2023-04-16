@@ -1,0 +1,23 @@
+const fs = require("fs");
+const filePath = process.platform === 'linux' ? '/dev/stdin' : __dirname+'/example.txt';
+let input = fs.readFileSync(filePath).toString().trim();
+const N = input.length;
+const A = 0;
+
+solution(N, input, A);
+
+function solution(N, word, A){
+    for(var i = 0; i < Math.floor(N/2); i++){
+        if(word[i]==word[N-1-i]){
+            A = A+1;
+        }else{
+            break;
+        }
+        }
+        
+        if(A == Math.floor(N/2)){
+            console.log(1)
+        }else{
+            console.log(0)
+        }
+}
