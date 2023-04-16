@@ -1,0 +1,26 @@
+const fs = require("fs");
+const filePath = process.platform === 'linux' ? '/dev/stdin' : __dirname+'/example.txt';
+let input = fs.readFileSync(filePath).toString().split("\n");
+input = input[0].split(" ");
+
+const num1 = +input[0];
+const num2 = +input[1];
+
+solution(num1, num2);
+
+function solution(A,B) {
+    const stringA = String(A);
+    const stringB = String(B);
+
+    answerA = stringA[2]+stringA[1]+stringA[0];
+    answerB = stringB[2]+stringB[1]+stringB[0];
+
+    answerA = +answerA;
+    answerB = +answerB;
+
+    if(answerA > answerB){
+        console.log(answerA)
+    }else{
+        console.log(answerB)
+    }
+}
