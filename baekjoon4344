@@ -1,0 +1,31 @@
+const fs = require("fs");
+const filePath = process.platform === 'linux' ? '/dev/stdin' : __dirname+'/example.txt';
+let input = fs.readFileSync(filePath).toString().split("\n");
+
+const C = input[0];
+
+const testCase = input.slice(1);
+
+function solution(C, input) {
+for(let j = 0; j<=C-1; j++){
+    const testCase1 = testCase[j].split(' ').map((item)=>+item);
+
+    var A = 0;
+    for (let i = 1; i <= testCase1[0] ; i++){
+        A = A + testCase1[i];
+    }
+
+    aver = A/testCase1[0];
+
+    var B = 0;
+    for (let i = 1; i <= testCase1[0] ; i++){
+        if (testCase1[i] > aver){
+            B = B + 1;
+        }    
+    }
+
+    console.log((100*B/testCase1[0]).toFixed(3)+'%');
+}
+} 
+
+solution (C, testCase);
