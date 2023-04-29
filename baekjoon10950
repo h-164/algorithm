@@ -1,0 +1,10 @@
+const fs = require("fs");
+const filePath =
+  process.platform === "linux" ? "/dev/stdin" : __dirname + "/example.txt";
+let input = fs.readFileSync(filePath).toString().split("\n");
+C = input[0];
+
+for (let i = 1; i <= C; i ++){
+  let plus = input[i].split(" ").map((item)=>+item);
+  console.log(plus[0]+plus[1])
+}
