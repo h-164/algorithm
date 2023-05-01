@@ -1,0 +1,28 @@
+const fs = require("fs");
+const filePath =
+  process.platform === "linux" ? "/dev/stdin" : __dirname + "/example.txt";
+let input = fs.readFileSync(filePath).toString().split("\n");
+const [N, M] = input[0].split(" ").map((item) => +item);
+
+let baguni = [];
+
+for (let i = 1; i <= N; i++) {
+  baguni.push(i);
+}
+
+function solution(baguni, N, M) {
+  for (let i = 1; i <= M; i++) {
+    const [begin, end, mid] = input[i].split(" ").map((item) => +item);
+    let mix = [];
+    for (let i = mid - 1; i <= end - 1; i++) {
+      mix.push(baguni[i]);
+    }
+    baguni.splice(mid - 1, end - mid + 1);
+    for (let i = mix.length - 1; i >= 0; i = i - 1) {
+      baguni.splice(begin - 1, 0, mix[i]);
+    }
+  }
+  console.log(baguni.join(" "));
+}
+
+solution(baguni, N, M);
