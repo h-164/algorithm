@@ -1,0 +1,40 @@
+const fs = require("fs");
+const filePath =
+  process.platform === "linux" ? "/dev/stdin" : __dirname + "/example.txt";
+let input = fs
+  .readFileSync(filePath)
+  .toString()
+  .split("\n")
+  .map((item) =>
+    item
+      .trim()
+      .split(" ")
+      .map((x) => +x)
+  );
+let [N, M] = input[0];
+
+function solution(M, N) {
+  let arr = new Array(M).fill(0);
+  let array = [];
+  for (let i = 0; i < N; i++) {
+    array.push([...arr]);
+  }
+
+  for (i = 0; i <= N - 1; i++) {
+    for (j = 0; j <= M - 1; j++) {
+      array[i][j] = input[i + 1][j] + input[i + N + 1][j];
+    }
+  }
+ 
+
+  for (i = 0; i <= N - 1; i++) {
+    join = array[i].join(" ");
+    array[i] = join;
+  }
+
+  array = array.join("\n");
+
+  console.log(array);
+}
+
+solution(M, N);
