@@ -1,0 +1,31 @@
+const fs = require("fs");
+const filePath =
+  process.platform === "linux" ? "/dev/stdin" : __dirname + "/example.txt";
+let input = fs.readFileSync(filePath).toString().split("\n");
+
+N = input[0];
+
+let arr = new Array(100).fill(0);
+let white = [];
+for (let i = 0; i <= 99; i++) {
+  white.push([...arr]);
+}
+
+for (let i = 1; i <= N; i++) {
+  let [A, B] = input[i].split(" ").map((item) => +item);
+  for (let j = A; j <= A + 9; j++) {
+    for (let k = B; k <= B + 9; k++) {
+      white[j][k] = white[j][k] + 1;
+    }
+  }
+}
+
+let check = 0;
+for (let i = 0; i <= 99; i++) {
+  for (let j = 0; j <= 99; j++) {
+    if (white[i][j] >= 2) {
+      check += 1 * (white[i][j] - 1);
+    }
+  }
+}
+console.log(100 * N - check);
