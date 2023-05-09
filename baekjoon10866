@@ -1,0 +1,57 @@
+const fs = require("fs");
+const filePath =
+  process.platform === "linux" ? "/dev/stdin" : __dirname + "/example.txt";
+let input = fs.readFileSync(filePath).toString().split("\n");
+
+const N = input.shift();
+
+let deq = [];
+let answer = [];
+
+for (let i = 0; i < N; i++) {
+  let [a, b] = input[i].split(" ").map((item) => item.trim());
+  if (a == "push_front") {
+    deq.reverse();
+    deq.push(parseInt(b));
+    deq.reverse();
+  } else if (a == "push_back") {
+    deq.push(parseInt(b));
+  } else if (a == "pop_front") {
+    if (deq.length == 0) {
+      answer = answer + "-1\n";
+    } else {
+      deq.reverse();
+      let value = deq.pop();
+      deq.reverse();
+      answer = answer + value + "\n";
+    }
+  } else if (a == "pop_back") {
+    if (deq.length == 0) {
+      answer = answer + "-1\n";
+    } else {
+      let value = deq.pop();
+      answer = answer + value + "\n";
+    }
+  } else if (a == "size") {
+    answer = answer + deq.length + "\n";
+  } else if (a == "empty") {
+    if (deq.length == 0) {
+      answer = answer + "1\n";
+    } else {
+      answer = answer + "0\n";
+    }
+  } else if (a == "front") {
+    if (deq.length == 0) {
+      answer = answer + "-1\n";
+    } else {
+      answer = answer + deq[0] + "\n";
+    }
+  } else if (a == "back") {
+    if (deq.length == 0) {
+      answer = answer + "-1\n";
+    } else {
+      answer = answer + deq[deq.length - 1] + "\n";
+    }
+  }
+}
+console.log(answer);
