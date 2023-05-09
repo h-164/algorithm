@@ -1,0 +1,45 @@
+const fs = require("fs");
+const filePath =
+  process.platform === "linux" ? "/dev/stdin" : __dirname + "/example.txt";
+let input = fs.readFileSync(filePath).toString().split("\n");
+
+const N = input.shift();
+
+let q = [];
+answer = "";
+for (let i = 0; i < input.length; i++) {
+  if (input[i].trim() == "pop") {
+    if (q.length == 0) {
+      answer = answer + "-1\n";
+    } else {
+      q.reverse();
+      answer = answer + q.pop() + "\n";
+      q.reverse();
+    }
+  } else if (input[i].trim() == "size") {
+    answer = answer + q.length + "\n";
+  } else if (input[i].trim() == "empty") {
+    if (q.length == 0) {
+      answer = answer + "1\n";
+    } else {
+      answer = answer + "0\n";
+    }
+  } else if (input[i].trim() == "front") {
+    if (q.length == 0) {
+      answer = answer + "-1\n";
+    } else {
+      answer = answer + q[0] + "\n";
+    }
+  } else if (input[i].trim() == "back") {
+    if (q.length == 0) {
+      answer = answer + "-1\n";
+    } else {
+      answer = answer + q[q.length - 1] + "\n";
+    }
+  } else {
+    let [a, b] = input[i].split(" ");
+    q.push(parseInt(b));
+  }
+}
+
+console.log(answer);
