@@ -1,0 +1,66 @@
+const fs = require("fs");
+const filePath =
+  process.platform === "linux" ? "/dev/stdin" : __dirname + "/example.txt";
+let input = fs.readFileSync(filePath).toString();
+  
+  class Node {
+    constructor(data) {
+      this.data = data;
+      this.next = null;
+    }
+  }
+  
+  class Queue {
+    constructor() {
+      this.head = null;
+      this.rear = null;
+      this.size = 0;
+    }
+  
+    enQueue(data) {
+      const newNode = new Node(data);
+  
+      if (!this.head) {
+        this.head = newNode;
+        this.rear = newNode;
+      } else {
+        this.rear.next = newNode;
+        this.rear = newNode;
+      }
+  
+      this.size++;
+
+      return newNode;
+    }
+  
+    deQueue() {
+      if (!this.head) {
+        return null;
+      }
+  
+      const removeNode = this.head;
+      this.head = this.head.next;
+      if (!this.head) {
+        this.rear = null;
+      }
+  
+      this.size--;
+  
+      return removeNode.data;
+    }
+
+  }
+
+  const Q = new Queue();
+  
+  for(let i = 1; i<= input; i++){
+    Q.enQueue(i);
+  }
+
+  while(Q.size > 1){
+    Q.deQueue();
+    Q.enQueue(Q.head.data);
+    Q.deQueue();
+  }
+
+  console.log(Q.head.data)
