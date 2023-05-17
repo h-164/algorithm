@@ -1,0 +1,24 @@
+function solution(name, yearning, photo) {
+    let N = photo.length;
+    
+    var answer = [];
+    
+ 
+    
+    for(let i = 0; i<N; i++){
+        let plus = 0;
+        let pho = photo[i]
+        let NN = pho.length;
+        for(let j = 0; j<NN; j++){
+            for(let k = 0; k < name.length; k++){
+                if(name[k] == pho[j]){
+                    plus = plus + yearning[k]
+                }
+            }
+        }
+    answer.push(plus)
+    }
+    
+
+    return answer;
+}
