@@ -1,0 +1,34 @@
+function solution(keymap, targets) {
+    var answer = []
+    
+    for(let i = 0; i < targets.length; i++){
+        let plus = []
+        for(let j = 0; j < targets[i].length; j++){
+            let alphabet = targets[i][j]
+            let num = []
+            for(let k = 0; k < keymap.length; k++){
+                if(keymap[k].indexOf(alphabet)== -1){
+                    num.push(101)
+                }else{
+                    num.push(keymap[k].indexOf(alphabet)+1)
+                }
+            }
+            plus.push(Math.min(...num))
+        }
+        let ans = 0
+        for(let l = 0; l < plus.length; l++){
+            if(plus[l] == 101){
+                ans = "false"
+                break;
+            }else{
+                ans += plus[l]
+            }
+        }
+        if(ans == "false"){
+            answer.push(-1)
+        }else{
+            answer.push(ans)
+        }
+    }
+return answer;
+}
