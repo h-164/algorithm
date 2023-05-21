@@ -1,0 +1,24 @@
+function solution(food) {
+    var answer = [];
+    
+    for(let i = 1; i < food.length; i++){
+        for(let j = 0; j < parseInt(food[i]/2); j++){
+            answer.push(i)
+        }        
+    }
+    
+    let revAns = [];
+    answer.reverse()
+    for(let i = 0; i < answer.length; i++){
+        revAns.push(answer[i])
+    }
+    answer.reverse()
+    answer.push(0)
+    
+    for(let i = 0; i < revAns.length; i++){
+        answer.push(revAns[i])
+    }
+    
+    answer = answer.join('')
+    return answer
+}
