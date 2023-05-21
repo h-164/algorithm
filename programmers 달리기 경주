@@ -1,0 +1,22 @@
+function solution(players, callings) {
+  
+    let object = {}
+    for(let i = 0; i < players.length; i++){
+        object[players[i]] = i;
+    }
+    
+    for(let i = 0; i < callings.length; i++){
+        let callName = callings[i] ///kai
+        let index = object[callings[i]]//kai의 객체 인덱스 3
+        let dkvtjstn = players[index-1] //poe
+        
+        players[index] = dkvtjstn;
+        players[index-1] = callName;
+        
+        object[callName]--;
+        object[players[index]]++;
+    }
+
+
+  return players;
+}
