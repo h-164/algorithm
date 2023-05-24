@@ -1,0 +1,28 @@
+function solution(s) {
+    var answer = [];
+    
+    for(let i = 0; i < s.length; i++){
+        let word = s[i]  //a
+        let index = i   //5
+        
+        if(index == 0){
+            answer.push(-1)
+        }else{
+            let sameSame = 0;
+            for(let j = 0; j < index; j++){
+                let same = s[j]
+                if(same == word){
+                    sameSame = index - j
+                }
+            }
+            if(sameSame == 0){
+                answer.push(-1)
+            }else{
+                answer.push(sameSame)
+                }
+        }
+    }
+    console.log(answer)
+
+    
+    return answer;
