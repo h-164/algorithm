@@ -1,0 +1,32 @@
+function solution(s, skip, index) {
+    var answer = [];
+    
+    let alphabet = []
+    
+    
+    for(let i = 97; i <= 122; i++){
+        let qqq = true;
+        for(let j = 0; j < skip.length; j++){
+            if(i === skip[j].charCodeAt(0)){
+                qqq = false;
+            }
+        }
+        if(qqq == true){
+            alphabet.push(String.fromCharCode(i))
+        }
+    }
+
+    
+    for(let i = 0; i < s.length; i++){
+        if(alphabet.indexOf(s[i])+index >= alphabet.length){
+            let a = 0;
+            a = (alphabet.indexOf(s[i])+index)%(alphabet.length);
+            answer.push(alphabet[a])
+        }else{
+            answer.push(alphabet[alphabet.indexOf(s[i])+index])  
+        }
+    }
+    console.log(alphabet)
+    
+    return answer.join("");
+}
