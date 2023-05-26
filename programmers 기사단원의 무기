@@ -1,0 +1,27 @@
+function solution(number, limit, power) {
+    var answer = 0;
+    
+    for(let i = 1; i <= number; i++){
+        let check = 0;
+        
+        for(let j = 1; j <= Math.sqrt(i); j++){      
+            if(i%j == 0){
+                if(i/j !== j){
+                check += 1
+                }
+                
+                check += 1
+            }
+             if(check > limit){
+                check = power;
+                break;
+            }
+        }
+        
+
+        
+        answer += check //1 + 
+     }
+
+    return answer;
+}
