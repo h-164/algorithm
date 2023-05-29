@@ -1,0 +1,19 @@
+function solution(x) {
+    var answer = true;
+    
+    let xx = x;
+    let plus = 0;
+    
+    while(x > 0.1){
+        plus += x%10
+        x = parseInt(x/10)
+    }
+    
+    if(xx%plus === 0){
+        answer = true;
+    }else{
+        answer = false;
+    }
+    
+    return answer;
+}
