@@ -1,0 +1,8 @@
+function solution(s) {
+    var answer = '';
+    
+    s.length%2 === 0? answer = answer = s[parseInt(s.length/2)-1]+s[parseInt(s.length/2)].toString()
+    : answer = s[parseInt(s.length/2)].toString() 
+    
+    return answer;
+}
