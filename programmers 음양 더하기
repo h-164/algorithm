@@ -1,15 +1,10 @@
 function solution(absolutes, signs) {
-    var answer = 0;
     
-    for(let i = 0; i < absolutes.length; i++){
-        if(signs[i] === false){
-            absolutes.splice(i,1,-absolutes[i])
-        }
-    }
-    
-    for(let i = 0; i < absolutes.length; i++){
-        answer += absolutes[i]
-    }
-    
-    return answer;
-}
+    let answer = absolutes.reduce((nj,hj,i) => 
+                                    {
+            if(signs[i] === false){
+                return nj + hj*(-1)
+            }else{
+                return nj + hj
+            }
+        },0)
