@@ -1,0 +1,10 @@
+function solution(s) {
+    let len = s.length
+    s = s.split("")
+    
+    s = s.filter((item) => isNaN(item) === false)
+    
+    console.log(s)
+    
+    return len === s.length && (len === 4 || len ===6)? true:false;
+}
