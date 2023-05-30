@@ -1,0 +1,9 @@
+function solution(a, b) {
+    var answer = 0;
+    
+    answer = a.reduce((nj, hj, i) => {
+        return nj + a[i]*b[i]
+    },0)
+    
+    return answer;
+}
