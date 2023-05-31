@@ -5,9 +5,7 @@ process.stdin.on('data', data => {
        
     for(let i = 0; i < b; i++){
         let star = "";
-        for(let j = 0; j < a; j++){
-            star += "*"
-        }
+        star = "*".repeat(a)
         console.log(star)
     }
 });
