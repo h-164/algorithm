@@ -1,0 +1,15 @@
+function solution(s) {
+    let answer = []
+    s = s.split(" ")
+    
+    for(let i = 0; i < s.length; i++){
+        for(let j = 0; j < s[i].length; j++){
+            j%2===0? answer.push(s[i][j].toUpperCase()) : answer.push(s[i][j].toLowerCase())
+        }
+        answer.push(" ")
+    }
+    
+    answer.pop(" ")
+    
+    return answer.join("");
+}
