@@ -1,0 +1,38 @@
+function solution(n, arr1, arr2) {
+    var answer = [];
+    let arr11 = [];
+    let arr22 = [];
+    
+    for(let i = 0; i < n; i++){
+        let a = new Array(n).fill("#")
+        answer.push(a)
+    }
+    
+    for(let i = 0; i < n; i++){
+        arr11.push(arr1[i].toString(2).split(""))
+        while(arr11[i].length !== (n)){
+            arr11[i].splice(0,0,"0")
+        }
+    }
+    
+     for(let i = 0; i < n; i++){
+         arr22.push(arr2[i].toString(2).split(""))
+         while(arr22[i].length !== (n)){
+           arr22[i].splice(0,0,"0")
+       }
+}
+    
+    for(let i = 0; i < n; i++){
+        for(let j = 0; j < n; j++){
+            if(arr11[i][j] === '0' && arr22[i][j] === '0'){
+                answer[i].splice(j,1," ")
+            }
+        }
+    }
+    
+    for(let i = 0; i < n; i++){
+        answer[i] = answer[i].join("")
+    }
+    
+    return answer;
+}
