@@ -1,0 +1,6 @@
+function solution(n, m) {
+    let chleo = (n,m) => n%m ? chleo(m,n%m) : m
+    let chlth = n*m / chleo(n,m)
+             
+    return [chleo(n,m),chlth];
+}
