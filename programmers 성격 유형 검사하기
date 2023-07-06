@@ -1,0 +1,31 @@
+function solution(survey, choices) {
+    var answer = ['R','C','J','A'];
+    let score = {'R' : 0, 'T' : 0, 'C' : 0, 'F' : 0,
+                'J' : 0, 'M' : 0, 'A' : 0, 'N' : 0}
+    
+    for(let i = 0; i < survey.length; i++){
+        if(choices[i]<4){
+            score[survey[i][0]] += 4-choices[i]
+        }else if(choices[i]>4){
+            score[survey[i][1]] += choices[i]-4
+        }
+    }
+    
+    if(score['T']>score['R']){
+        answer[0] = 'T'
+    }
+    
+    if(score['F']>score['C']){
+        answer[1] = 'F'
+    }
+    
+    if(score['M']>score['J']){
+        answer[2] = 'M'
+    }
+    
+    if(score['N']>score['A']){
+        answer[3] = 'N'
+    }
+    
+    return answer.join("");
+}
