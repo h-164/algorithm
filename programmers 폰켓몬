@@ -1,20 +1,7 @@
 function solution(nums) {
     var answer = 0;
     
-    nums.sort(function(a, b) {
-        return a - b;
-    });
+    let mon = new Set(nums).size
     
-    let arr =[];
-    for(let i = 0; i < nums.length; i++){
-        if(arr[arr.length-1] !== nums[i]){
-            arr.push(nums[i])
-        }
-        
-        if(arr.length === nums.length/2){
-            break
-        }
-    }
-    
-    return arr.length;
+    return mon > nums.length/2? nums.length/2:mon
 }
