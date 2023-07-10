@@ -1,0 +1,27 @@
+function solution(N, stages) {
+    var answer = [];
+    let arr = new Array(N+2).fill(0)
+    let obj = {}
+    
+    for(let i = 0; i < stages.length; i++){
+        arr[stages[i]]++
+    }
+    // 1/8 3/7 2/4 1/2 0/1
+    let num = stages.length
+    
+    for(let i = 1; i < arr.length-1; i++){
+        answer.push([i,arr[i]/num]);
+        num -= arr[i]
+    }
+    
+    answer.sort(function(a,b){
+        return b[1]-a[1]
+    })
+    
+    let ans = []
+    for(let i = 0; i<answer.length; i++){
+        ans.push(answer[i][0])
+    }
+    
+    return ans;
+}
