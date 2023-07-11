@@ -1,0 +1,18 @@
+function solution(s, n) {
+    let answer = s.split("").map(function(item){
+       let code = item.charCodeAt(0)+n
+        
+       if(item === ' '){
+            return ' '
+        }else if(91 <= code && code <= 117 && item === item.toUpperCase()){
+            code = code - 26
+            return String.fromCharCode(code)
+        }else if(123 <= code && code <= 149 && item === item.toLowerCase()){
+             code = code - 26
+            return String.fromCharCode(code)
+        }else{
+            return String.fromCharCode(code)
+        }
+    })      
+    return answer.join("");
+}
