@@ -1,0 +1,47 @@
+function solution(X, Y) {
+    let answer = []
+    
+    let XX = [0,0,0,0,0,0,0,0,0,0]
+    let YY = [0,0,0,0,0,0,0,0,0,0]
+    let XY = []
+    
+    X=X.split("")
+    for(let i = 0; i < X.length; i++){
+        XX[X[i]]++
+    }
+    
+    Y=Y.split("")
+    for(let i = 0; i < Y.length; i++){
+        YY[Y[i]]++
+    }
+    
+    for(let i = 0; i < 10; i++){
+        if(YY[i]!==0 && XX[i]>YY[i]){
+            for(let j = 0; j < YY[i]; j++){
+                XY.push(i)
+            }
+        }else if(XX[i]!==0 && YY[i]>XX[i]){
+            for(let j = 0; j < XX[i]; j++){
+                XY.push(i)
+            }
+        }else if(XX[i] === YY[i] && XX[i]!==0){
+            for(let j = 0; j < XX[i]; j++){
+                XY.push(i)
+            }
+        }   
+    }
+    
+    if(XY.length === 0){
+        XY.push("-1")
+    }
+    
+    answer = XY.sort(function(a, b) {
+    return b - a;
+});
+    
+    if(answer[0] === 0){
+        answer = ['0']
+    }
+    
+    return answer.join("")
+}
