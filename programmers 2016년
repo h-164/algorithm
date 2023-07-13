@@ -1,0 +1,14 @@
+function solution(a, b) {
+    var answer = 0;
+    
+    const dow = ['THU','FRI','SAT','SUN','MON','TUE','WED']
+    const month = [31,29,31,30,31,30,31,31,30,31,30,31]
+    
+    for(let i = 0; i < a-1; i++){
+       answer += month[i]
+    }
+    
+    answer = dow[(answer+b)%7]
+    
+    return answer;
+}
