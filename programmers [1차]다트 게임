@@ -1,0 +1,30 @@
+function solution(dartResult) {
+    let answer = [];
+    let stack = [];
+    
+    dartResult = dartResult.split("")
+    
+    for(let i = 0; i < dartResult.length; i++){
+        if(dartResult[i] === 'S'){
+           answer.push(parseInt(stack.join("")));
+           stack = [];
+        }else if(dartResult[i] === 'D'){
+           answer.push(Math.pow(parseInt(stack.join("")),2));
+           stack = [];
+        }else if(dartResult[i] === 'T'){
+           answer.push(Math.pow(parseInt(stack.join("")),3));
+           stack = [];
+        }else if(dartResult[i] === '*'){
+            answer[answer.length-1]=(answer[answer.length-1])*2; 
+            answer[answer.length-2]=(answer[answer.length-2])*2;
+        }else if(dartResult[i] === '#'){
+            answer[answer.length-1]=answer[answer.length-1]*(-1)
+        }else{
+            stack.push(dartResult[i])
+        }
+    }
+    let answerr = answer.reduce((nj,hj) => {
+            return nj + hj
+          })
+    return answerr;
+}
