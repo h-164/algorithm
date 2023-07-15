@@ -1,0 +1,63 @@
+function solution(park, routes) {
+    routes = routes.map((item)=>item.split(" "))
+    
+    let stay = []
+    for(let i = 0; i < park.length; i++){    
+        if(park[i].indexOf("S")!==-1){
+            stay.push(i)
+            stay.push(park[i].indexOf("S"))
+        }
+        
+        park[i]=park[i].split("")
+    }
+    
+    
+    for(let i = 0; i < routes.length; i++){
+        if(routes[i][0]==="E"){
+            let check = true;
+            for(let j = 1; j <= parseInt(routes[i][1]); j++){
+                if(stay[1]+j>park[0].length-1|| park[stay[0]][stay[1]+j]==="X"){
+                    check = false;
+                    break;
+                }    
+            }
+            if(check===true){stay[1]+=parseInt(routes[i][1])}
+        }
+        
+        else if(routes[i][0]==="W"){
+            let check = true;
+            for(let j = 1; j <= parseInt(routes[i][1]); j++){
+                if(stay[1]-j<0 ||park[stay[0]][stay[1]-j]==="X"){
+                    check = false;
+                    break;
+                }    
+            }
+            if(check===true){stay[1]-=parseInt(routes[i][1])}
+        }
+        
+        else if(routes[i][0]==="S"){
+            let check = true;
+            for(let j = 1; j <= parseInt(routes[i][1]); j++){
+                if(park.length-1<stay[0]+j || park[stay[0]+j][stay[1]]==="X"){
+                    check = false;
+                    break;
+                }
+            }
+            if(check===true){stay[0]+=parseInt(routes[i][1])}
+        }
+        
+        else if(routes[i][0]==="N"){
+            let check = true;
+            for(let j = 1; j <= parseInt(routes[i][1]); j++){
+                if(stay[0]-j<0 || park[stay[0]-j][stay[1]]==="X"){
+                    check = false;
+                    break;
+                }
+            }
+            if(check===true){stay[0]-=parseInt(routes[i][1])}
+        }
+    }
+    //S도 갈 수 있는 지역인데 잊었다
+    
+    return stay;
+}
