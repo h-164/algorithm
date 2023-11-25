@@ -1,0 +1,22 @@
+const fs = require("fs");
+const filePath =
+  process.platform === "linux" ? "/dev/stdin" : __dirname + "/example.txt";
+let input = fs.readFileSync(filePath).toString().trim();
+
+let a = 0;
+let b = 1;
+let c = 2;
+
+function fibonacci(a, b, c, input) {
+  if (c >= input) {
+    return a + b;
+  }
+
+  return fibonacci(b, a + b, c + 1, input);
+}
+
+if (input === "0") {
+  console.log(0);
+} else {
+console.log(fibonacci(a, b, c, input));
+}
