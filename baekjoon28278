@@ -1,31 +1,23 @@
-const fs = require("fs");
-const filePath =
-  process.platform === "linux" ? "/dev/stdin" : __dirname + "/example.txt";
-let input = fs
-  .readFileSync(filePath)
-  .toString()
-  .split("\n")
-  .map((item) => item.split(" "));
-
-const ORDER = input[0];
-
 class Stack {
   constructor() {
     this.arr = [];
-    this.index = 0;
+    this.index = -1;
     this.top = 0;
     this.length = 0;
   }
   push(item) {
-    this.arr[this.index++] = item;
+    this.arr.push(item);
+    this.index++;
     this.top = item;
     this.length++;
   }
   pop() {
     if (this.length === 0) return null;
-    this.arr.pop(this.length - 1);
-    this.top = this.arr[this.index];
     this.index--;
+    this.top = this.arr[this.index];
     this.length--;
+    return this.arr.pop(this.length);
   }
 }
+
+let stack = new Stack();
