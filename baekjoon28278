@@ -4,8 +4,32 @@ const filePath =
 let input = fs.readFileSync(filePath).toString().split("\n");
 
 input.shift();
-let stack = [];
-let result = [];
+let answer = [];
+
+class Stack {
+  constructor() {
+    this.arr = [];
+    this.length = 0;
+    this.top = null;
+  }
+  push(item) {
+    this.length++;
+    this.top = item;
+    this.arr.push(item);
+  }
+
+  pop() {
+    if (this.length === 0) return null;
+    let topp = this.top;
+    this.arr.pop();
+    this.length--;
+    this.top = this.arr[this.length - 1];
+
+    return topp;
+  }
+}
+
+const stack = new Stack();
 
 input.forEach((stackNum) => {
   switch (+stackNum[0]) {
@@ -14,31 +38,31 @@ input.forEach((stackNum) => {
       break;
     case 2:
       if (stack.length !== 0) {
-        result.push(stack.pop());
+        answer.push(stack.pop());
       } else {
-        result.push(-1);
+        answer.push(-1);
       }
       break;
     case 3:
-      result.push(stack.length);
+      answer.push(stack.length);
       break;
     case 4:
       if (stack.length !== 0) {
-        result.push(0);
+        answer.push(0);
       } else {
-        result.push(1);
+        answer.push(1);
       }
       break;
     case 5:
       if (stack.length !== 0) {
-        result.push(stack[stack.length - 1]);
+        answer.push(stack.top);
       } else {
-        result.push(-1);
+        answer.push(-1);
       }
       break;
   }
 });
 
-console.log(result.join("\n"));
+console.log(answer.join("\n"));
 
 
