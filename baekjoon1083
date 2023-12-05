@@ -1,0 +1,54 @@
+const fs = require("fs");
+const filePath =
+  process.platform === "linux" ? "/dev/stdin" : __dirname + "/example.txt";
+
+const input = fs.readFileSync(filePath).toString().split("\n");
+const N = parseInt(input[0]);
+const arr = input[1].split(" ").map(Number);
+let M = parseInt(input[2]); // 'let'으로 수정
+
+function solution() {
+  if ((N * (1 + N)) / 2 < M) {
+    arr.sort((a, b) => a - b);
+    printAnswer(N, arr, true);
+    return;
+  }
+
+  for (let k = 0; k < N && M > 0; k++) {
+    let max = arr[k];
+    let idx = -1;
+    for (let i = k + 1; i < N && i <= k + M; i++) {
+      if (arr[i] > max) {
+        max = arr[i];
+        idx = i;
+      }
+    }
+
+    if (idx === -1) continue;
+
+    M -= idx - k;
+    for (let i = idx; i >= k + 1; i--) {
+      let tmp = arr[i];
+      arr[i] = arr[i - 1];
+      arr[i - 1] = tmp;
+    }
+  }
+
+  printAnswer(N, arr, false);
+}
+
+function printAnswer(N, arr, reverse) {
+  let result = "";
+  if (reverse) {
+    for (let i = N - 1; i >= 0; i--) {
+      result += arr[i] + " ";
+    }
+  } else {
+    for (let i = 0; i < N; i++) {
+      result += arr[i] + " ";
+    }
+  }
+  console.log(result.trim());
+}
+
+solution();
