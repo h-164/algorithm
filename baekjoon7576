@@ -1,0 +1,86 @@
+const fs = require("fs");
+const filePath =
+  process.platform === "linux" ? "/dev/stdin" : __dirname + "/example.txt";
+
+const input = fs.readFileSync(filePath).toString().split("\n");
+const [M, N] = input[0].split(" ");
+
+let box = [];
+let ripe = [];
+let day = 0;
+
+for (let i = 1; i <= N; i++) {
+  let array = input[i].split(" ").map((item) => +item);
+  box.push(array);
+}
+
+for (let i = 0; i < N; i++) {
+  for (let j = 0; j < M; j++) {
+    if (box[i][j] === 1) {
+      ripe.push([i, j]);
+    }
+  }
+}
+
+class CreateQ {
+  constructor() {
+    this.ripes = [];
+    this.length = 0;
+    this.index = 0;
+  }
+
+  enQueue(tomato) {
+    this.ripes.push(tomato);
+    this.length++;
+  }
+
+  deQueue() {
+    this.index++;
+    this.length--;
+  }
+
+  surround() {
+    let x = this.ripes[Q.index][0];
+    let y = this.ripes[Q.index][1];
+    let right = [x, y + 1];
+    let left = [x, y - 1];
+    let up = [x + 1, y];
+    let down = [x - 1, y];
+
+    let surrond = [right, left, up, down];
+    return surrond;
+  }
+}
+
+let Q = new CreateQ();
+
+for (let i = 0; i < ripe.length; i++) {
+  Q.enQueue(ripe[i]);
+}
+
+while (Q.length) {
+  let ripeTomato = Q.length;
+  for (let k = 0; k < ripeTomato; k++) {
+    let surround = Q.surround();
+
+    for (let i = 0; i < 4; i++) {
+      let x = surround[i][0];
+      let y = surround[i][1];
+
+      if (x >= 0 && y >= 0 && x < N && y < M && box[x][y] === 0) {
+        box[x][y] = 1;
+        Q.enQueue(surround[i]);
+      }
+    }
+    Q.deQueue();
+  }
+
+  day++;
+}
+
+const allRipe = box.every((row) => row.every((element) => element !== 0));
+if (allRipe) {
+  console.log(day - 1);
+} else {
+  console.log(-1);
+}
