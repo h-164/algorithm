@@ -1,0 +1,23 @@
+function solution(progresses, speeds) {
+    var answer = [];
+    let queue = []
+    let days = []
+
+    
+    for(let i = 0; i < progresses.length; i++){
+        let day = Math.ceil((100-progresses[i])/speeds[i])
+        days.push(day)
+    }
+    
+    for(let i = 0; i < days.length; i++){
+        queue.push(days[i])
+        if(queue.length!==1 && queue[0]<days[i]){
+            answer.push(queue.length-1)
+            queue = [days[i]]
+        }
+    }
+    
+    answer.push(queue.length)
+    
+    return answer;
+}
