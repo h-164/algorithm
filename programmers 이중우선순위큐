@@ -36,6 +36,23 @@ function solution(operations) {
       this.popSwap(0, this.heap[0]);
       return pop;
     }
+      
+       getMax() {
+    if (this.length === 0) {
+      return;
+    }
+
+    let leafStart = Math.ceil((this.length - 1) / 2);
+    let leaves = [];
+
+    for (let i = leafStart; i < this.length; i++) {
+      leaves.push(this.heap[i]);
+    }
+
+    leaves.sort((a, b) => a - b);
+    let max = leaves[leaves.length - 1];
+    return max;
+  }
 
     popSwap(parentIndex) {
       while (true) {
@@ -88,8 +105,6 @@ function solution(operations) {
       let maxIndex = this.heap.indexOf(max);
       this.heap.splice(maxIndex, 1);
       this.length--;
-
-      return max;
     }
   }
 
@@ -107,7 +122,7 @@ function solution(operations) {
   }
 
   if (minHeap.length !== 0) {
-    answer[0] = minHeap.maxPop();
+    answer[0] = minHeap.getMax();
     answer[1] = minHeap.heap[0];
   }
 
