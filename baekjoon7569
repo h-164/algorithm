@@ -1,0 +1,103 @@
+const fs = require("fs");
+const filePath =
+  process.platform === "linux" ? "/dev/stdin" : __dirname + "/example.txt";
+
+const input = fs.readFileSync(filePath).toString().split("\n");
+const [M, N, H] = input[0].split(" ").map(Number);
+
+let box = [];
+
+for (let i = 1; i <= H * N; i += N) {
+  let temp = [];
+  for (let j = i; j < i + N; j++) {
+    temp.push(input[j].split(" ").map(Number));
+  }
+  box.push(temp);
+}
+
+class CreateQ {
+  constructor() {
+    this.ripes = [];
+    this.length = 0;
+    this.index = 0;
+  }
+
+  enQueue(tomato) {
+    this.ripes.push(tomato);
+    this.length++;
+  }
+
+  deQueue() {
+    this.index++;
+    this.length--;
+  }
+
+  surround() {
+    let x = this.ripes[this.index][0];
+    let y = this.ripes[this.index][1];
+    let z = this.ripes[this.index][2];
+    let right = [x, y + 1, z];
+    let left = [x, y - 1, z];
+    let up = [x + 1, y, z];
+    let down = [x - 1, y, z];
+    let front = [x, y, z + 1];
+    let back = [x, y, z - 1];
+
+    let surround = [right, left, up, down, front, back];
+    return surround;
+  }
+}
+
+let Q = new CreateQ();
+
+for (let i = 0; i < H; i++) {
+  for (let j = 0; j < N; j++) {
+    for (let k = 0; k < M; k++) {
+      if (box[i][j][k] === 1) {
+        Q.enQueue([j, k, i]);
+      }
+    }
+  }
+}
+
+let day = 0;
+
+while (Q.length) {
+  let ripeTomato = Q.length;
+  for (let k = 0; k < ripeTomato; k++) {
+    let surround = Q.surround();
+
+    for (let i = 0; i < 6; i++) {
+      let x = surround[i][0];
+      let y = surround[i][1];
+      let z = surround[i][2];
+
+      if (
+        x >= 0 &&
+        y >= 0 &&
+        z >= 0 &&
+        x < N &&
+        y < M &&
+        z < H &&
+        box[z][x][y] === 0
+      ) {
+        box[z][x][y] = 1;
+        Q.enQueue([x, y, z]);
+      }
+    }
+    Q.deQueue();
+  }
+
+  day++;
+}
+
+const allRipe = box.every((layer) =>
+  layer.every((row) => row.every((element) => element !== 0))
+);
+
+if (allRipe) {
+  console.log(day - 1);
+} else {
+  console.log(-1);
+}
+v
