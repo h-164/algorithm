@@ -1,0 +1,41 @@
+const filePath = process.platform === "linux" ? "/dev/stdin" : "./example.txt";
+let [s, t] = require("fs")
+  .readFileSync(filePath)
+  .toString()
+  .trim()
+  .split("\n")
+  .map((item) => item.trim());
+
+let answer = 0;
+
+class Dfs {
+  constructor() {
+    this.stack = [];
+  }
+
+  push(node) {
+    this.stack.push(node);
+    this.pop(node);
+  }
+
+  pop(node) {
+    this.stack.pop();
+
+    if (node === s) {
+      answer = 1;
+      return;
+    }
+
+    if (node[node.length - 1] === "A") {
+      this.push(node.slice(0, -1));
+    }
+
+    if (node[0] === "B") {
+      this.push(node.split("").reverse().slice(0, -1).join(""));
+    }
+  }
+}
+
+const dfs = new Dfs();
+dfs.push(t);
+console.log(answer);
