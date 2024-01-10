@@ -1,0 +1,86 @@
+const fs = require("fs");
+const filePath =
+  process.platform === "linux" ? "/dev/stdin" : __dirname + "/example.txt";
+let input = fs
+  .readFileSync(filePath)
+  .toString()
+  .split("\n")
+  .map((item) => +item);
+let N = input[0];
+
+class MaxHeap {
+  constructor() {
+    this.heap = [];
+    this.length = 0;
+  }
+
+  push(node) {
+    this.heap.push(node);
+    this.length++;
+    let index = this.length - 1;
+    if (this.length !== 1) {
+      this.swap(index, node);
+    }
+  }
+
+  swap(childIndex, child) {
+    let parentIndex = parseInt((childIndex - 1) / 2);
+    if (child > this.heap[parentIndex]) {
+      this.heap[childIndex] = this.heap[parentIndex];
+      this.heap[parentIndex] = child;
+      this.swap(parentIndex, child);
+    }
+  }
+
+  pop() {
+    if (this.length === 0) {
+      return 0;
+    }
+    let pop = this.heap[0];
+    this.heap[0] = this.heap[this.length - 1];
+    this.heap.pop();
+    this.length--;
+    this.popSwap(0);
+    return pop;
+  }
+
+  popSwap(parentIndex) {
+    while (true) {
+      let leftChild = parentIndex * 2 + 1;
+      let rightChild = parentIndex * 2 + 2;
+      let largest = parentIndex;
+
+      if (leftChild < this.length && this.heap[leftChild] > this.heap[largest]) {
+        largest = leftChild;
+      }
+
+      if (rightChild < this.length && this.heap[rightChild] > this.heap[largest]) {
+        largest = rightChild;
+      }
+
+      if (largest !== parentIndex) {
+        [this.heap[parentIndex], this.heap[largest]] = [
+          this.heap[largest],
+          this.heap[parentIndex],
+        ];
+        parentIndex = largest;
+      } else {
+        break;
+      }
+    }
+  }
+}
+
+const maxHeap = new MaxHeap();
+
+let answer = [];
+
+for (let i = 1; i <= N; i++) {
+  if (input[i] === 0) {
+    answer.push(maxHeap.pop());
+  } else {
+    maxHeap.push(input[i]);
+  }
+}
+
+console.log(answer.join("\n"));
