@@ -1,0 +1,18 @@
+function solution(numbers, target) {
+    var answer = 0;
+
+    function calcul(sum, arr, index) {
+        if (index === arr.length) {
+            if (sum === target) {
+                answer++;
+            }
+        } else {
+            calcul(sum - arr[index], arr, index + 1);
+            calcul(sum + arr[index], arr, index + 1);
+        }
+    }
+
+    calcul(0, numbers, 0);
+
+    return answer;
+}
