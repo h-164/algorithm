@@ -1,0 +1,29 @@
+const fs = require("fs");
+const filePath =
+  process.platform === "linux" ? "/dev/stdin" : __dirname + "/example.txt";
+let input = fs.readFileSync(filePath).toString().split("\n");
+let [N, K] = input[0].split(" ");
+let sum = 0;
+
+for (let i = 1; i < +N + 1; i++) {
+  sum += +input[i];
+}
+
+let start = 1;
+let end = sum / K + 1;
+
+while (start <= end) {
+  let mid = parseInt((start + end) / 2);
+
+  let lan = 0;
+  for (let i = 1; i < +N + 1; i++) {
+    lan += parseInt(+input[i] / mid);
+  }
+
+  if (lan >= K) {
+    start = mid + 1;
+  } else {
+    end = mid - 1;
+  }
+}
+console.log(end);
