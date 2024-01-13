@@ -1,0 +1,40 @@
+const fs = require("fs");
+const filePath =
+  process.platform === "linux" ? "/dev/stdin" : __dirname + "/example.txt";
+
+const input = fs.readFileSync(filePath).toString().split("\n");
+const N = input[0];
+const arr = input[1].split(" ").map((item) => +item);
+arr.sort(function (a, b) {
+  return a - b;
+});
+
+let start = 0;
+let end = arr.length - 1;
+let min = arr[start] + arr[end];
+let correctStart = arr[start];
+let correctEnd = arr[end];
+
+while (start < end) {
+  let sum = arr[start] + arr[end];
+
+  if (sum === 0) {
+    correctStart = arr[start];
+    correctEnd = arr[end];
+    break;
+  }
+
+  if (Math.abs(min) > Math.abs(sum)) {
+    correctStart = arr[start];
+    correctEnd = arr[end];
+    min = sum;
+  }
+
+  if (sum < 0) {
+    start += 1;
+  } else {
+    end -= 1;
+  }
+}
+
+console.log(correctStart + " " + correctEnd);
