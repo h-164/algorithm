@@ -1,0 +1,30 @@
+const fs = require("fs");
+const filePath =
+  process.platform === "linux" ? "/dev/stdin" : __dirname + "/example.txt";
+
+let input = fs.readFileSync(filePath).toString().split("\n");
+const explosion = input[1];
+const len = explosion.length;
+const last = explosion[len - 1];
+input = input.shift().trim();
+let stack = [];
+
+for (let i = 0; i < input.length; i++) {
+  stack.push(input[i]);
+  let topIndex = stack.length - 1;
+
+  if (
+    stack[topIndex] === last &&
+    stack.slice(topIndex - len + 1, topIndex + 1).join("") === explosion
+  ) {
+    for (let i = 0; i < len; i++) {
+      stack.pop();
+    }
+  }
+}
+
+if (stack.length === 0) {
+  console.log("FRULA");
+} else {
+  console.log(stack.join(""));
+}
