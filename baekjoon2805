@@ -1,0 +1,38 @@
+const fs = require("fs");
+const filePath =
+  process.platform === "linux" ? "/dev/stdin" : __dirname + "/example.txt";
+
+let input = fs.readFileSync(filePath).toString().split("\n");
+const [N, M] = input[0].split(" ").map((item) => +item);
+const tree = input[1]
+  .split(" ")
+  .map((item) => +item)
+  .sort(function (a, b) {
+    return a - b;
+  });
+
+let start = 0;
+let end = tree[tree.length - 1];
+
+while (start <= end) {
+  let mid = parseInt((start + end) / 2);
+  let cut = 0;
+
+  for (let i = 0; i < tree.length; i++) {
+    if (tree[i] - mid >= 0) {
+      cut += tree[i] - mid;
+    }
+
+    if (cut >= M) {
+      break;
+    }
+  }
+
+  if (cut >= M) {
+    start = mid + 1;
+  } else {
+    end = mid - 1;
+  }
+}
+
+console.log(end);
