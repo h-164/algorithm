@@ -1,0 +1,24 @@
+
+function solution(numbers) {
+  var answer = [];
+  for (let i = 0; i < numbers.length; i++) {
+    answer.push(-1);
+  }
+
+  let stack = [0];
+
+  for (let i = 1; i < numbers.length; i++) {
+    while (stack.length !== 0) {
+      if (numbers[stack[stack.length - 1]] < numbers[i]) {
+        answer[stack[stack.length - 1]] = numbers[i];
+        stack.pop();
+      } else {
+        stack.push(i);
+        break;
+      }
+    }
+    stack.push(i);
+  }
+
+  return answer;
+}
