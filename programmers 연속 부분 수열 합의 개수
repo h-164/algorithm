@@ -1,0 +1,25 @@
+function solution(elements) {
+    var answer = []
+    
+    let count = 0
+    for(let i = 0; i < elements.length; i++){
+        count += elements[i]
+    }
+    answer.push(count)
+    
+    for(let i = 0; i < elements.length; i++){
+        let index = i
+        
+        for(let j = 1; j < elements.length+1; j++){
+            let count = 0
+            for(let k = 0; k < j; k++){
+                count+=elements[(i+k)%elements.length]
+            }
+            answer.push(count)
+        }
+    }
+    
+    let arr =[...new Set(answer)];
+    
+    return arr.length;
+}
