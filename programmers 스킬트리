@@ -1,0 +1,25 @@
+function solution(skill, skill_trees) {
+    var answer = 0;
+    let skills = skill.split("")
+    
+    for(let i = 0; i < skill_trees.length; i++){
+        let arr = [-1]
+
+        let skillTree = skill_trees[i].split("")
+        answer++
+        
+        for(let j = 0; j < skillTree.length; j++){
+
+            let index = skills.indexOf(skillTree[j])
+            
+            if(arr[arr.length-1]===index-1){
+                arr.push(index)
+            }else if(index!==-1){
+                answer-=1
+                break;
+            }
+        }
+    }
+    
+    return answer;
+}
