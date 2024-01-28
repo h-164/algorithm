@@ -1,0 +1,27 @@
+const fs = require("fs");
+const filePath =
+  process.platform === "linux" ? "/dev/stdin" : __dirname + "/example.txt";
+
+let input = fs.readFileSync(filePath).toString().split("\n");
+let N = input[0];
+let answer = [];
+
+for (let i = 1; i <= N; i++) {
+  let stack = [];
+  let arr = input[i].trim().split("");
+
+  for (let j = 0; j < arr.length; j++) {
+    if (stack.length === 0 && arr[j] === ")") {
+      stack.push("1");
+      break;
+    }
+
+    arr[j] === "(" ? stack.push(j) : stack.pop();
+  }
+
+  stack.length === 0 ? answer.push("YES") : answer.push("NO");
+}
+
+for (let i = 0; i < N; i++) {
+  console.log(answer[i]);
+}
