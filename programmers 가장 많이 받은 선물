@@ -1,0 +1,53 @@
+function solution(friends, gifts) {    
+    let giftIndex = new Map();
+    let nextMonthGift = new Map();
+    
+    for(let i = 0; i < friends.length; i++){
+        giftIndex.set(friends[i],0)
+    }
+    
+    for(let i = 0; i < gifts.length; i++){
+        let [giver,receiver] = gifts[i].split(" ")
+        giftIndex.set(giver, giftIndex.get(giver)+1)
+        giftIndex.set(receiver,giftIndex.get(receiver)-1)
+    }
+   
+    for(let i = 0; i < friends.length; i++){
+        let nameA = friends[i]
+        for(let j = i+1; j < friends.length; j++){
+            let nameB = friends[j]
+            calculate(nameA,nameB)
+            }
+        }
+    
+    function calculate(a,b){
+        let aScore = 0;
+        let bScore = 0;
+        
+        for(let i = 0; i < gifts.length; i++){
+            let [giver,receiver] = gifts[i].split(" ");
+            if(giver === a && receiver === b){
+                aScore++
+            }else if(giver === b && receiver === a){
+                bScore++
+            }
+        }
+        
+        if(aScore>bScore){
+            nextMonthGift.set(a, (nextMonthGift.get(a) || 0)+1)
+        }else if(bScore>aScore){
+            nextMonthGift.set(b, (nextMonthGift.get(b) || 0)+1)
+        }else if(aScore===bScore){
+            let aGiftIndex = giftIndex.get(a)
+            let bGiftIndex = giftIndex.get(b)
+            
+            if(aGiftIndex>bGiftIndex){
+               nextMonthGift.set(a, (nextMonthGift.get(a) || 0)+1)
+            }else if(bGiftIndex>aGiftIndex){
+                nextMonthGift.set(b, (nextMonthGift.get(b) || 0)+1)
+            }
+        } 
+    }
+
+    return Math.max(0,...nextMonthGift.values());
+}
