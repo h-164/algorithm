@@ -1,0 +1,32 @@
+function solution(record) {
+    var answer = [];
+    let enter = "님이 들어왔습니다."
+    let leave = "님이 나갔습니다."
+    let actions = []
+    let nicknames = {}
+    
+    function get(record){
+        const [action, id, nickname] = record.split(" ");
+        return { action, id, nickname };
+    }
+    
+    record.forEach((record)=>{
+        const { action, id, nickname} = get(record);
+        
+        if(action==="Leave"){
+            return actions.push({id:id,action:leave})
+        }
+        
+         nicknames[id]=nickname
+        
+        if(action==="Enter"){
+            return actions.push({id:id, action:enter})
+        }
+    })
+    
+    actions.forEach((action)=>{
+        answer.push(nicknames[action.id]+action.action)
+    })
+    
+    return answer;
+}
