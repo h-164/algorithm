@@ -1,0 +1,27 @@
+function solution(order) {
+    let belt= Array.from({ length: order.length }, (_, index) => index + 1);
+    let auxiliary = [];
+    let truck=0;
+    let index = 0
+    
+    belt.forEach((number)=>{ 
+        if(number!==order[index]){
+            auxiliary.push(number)
+        }
+        
+        if(number===order[index]){
+            truck++;
+            index++
+        }
+        
+        while(auxiliary.length > 0 && auxiliary[auxiliary.length-1]===order[index]){
+            truck++;
+            auxiliary.pop();
+            index++
+        }
+        
+        
+    })
+    
+    return truck;
+}
