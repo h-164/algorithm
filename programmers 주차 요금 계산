@@ -1,0 +1,54 @@
+function solution(fees, records) {
+    const BASIC_TIME = fees[0];
+    const BASIC_FEE = fees[1];
+    const TIME = fees[2];
+    const FEE = fees[3];
+    
+    let parkedCars = {}
+    let carsParkingTime = {}
+    let carsfee = {}
+    
+    function get(record){
+        let [time, carNumber, action] = record.split(" ")
+        let [hour, min] = time.split(":")
+        time = Number(hour)*60+Number(min)
+        return {time, carNumber, action}
+    }
+    
+    function calculateFee(parkTime){
+        if(parkTime<=BASIC_TIME){
+            return BASIC_FEE
+        }
+        
+        return Math.ceil((parkTime-BASIC_TIME)/TIME)*FEE+BASIC_FEE
+    }
+    
+    records.forEach((record)=>{
+        const { time, carNumber, action} = get(record);
+ 
+        if(action==="IN"){
+            parkedCars[carNumber] = time
+            carsfee[carNumber] = 0
+            if (!carsParkingTime[carNumber]) {
+                carsParkingTime[carNumber] = 0;
+                }
+        }
+        
+        if(action==="OUT"){
+            carsParkingTime[carNumber] += time-parkedCars[carNumber] 
+            delete parkedCars[carNumber]
+        }
+    })
+    
+    for(const carNumber in parkedCars){
+       carsParkingTime[carNumber]+=1439-parkedCars[carNumber]
+    }
+    
+    for(const carNumber in carsParkingTime){
+        carsfee[carNumber] = calculateFee(carsParkingTime[carNumber])
+    }
+    
+    const answer = Object.entries(carsfee).sort(([keyA], [keyB]) => keyA - keyB).map(([key, value]) => value);
+
+    return answer;
+}
