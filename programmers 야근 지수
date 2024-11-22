@@ -1,0 +1,70 @@
+function solution(n, works) {
+  class MaxHeap {
+    constructor() {
+      this.heap = [];
+      this.length = 0;
+    }
+
+    getAnswer() {
+      return this.heap.reduce((sum, value) => sum + value * value, 0);
+    }
+
+    push(node) {
+      this.heap.push(node);
+      this.length++;
+      this.heapifyUp(this.length - 1);
+    }
+
+    heapifyUp(index) {
+      let parentIndex = Math.floor((index - 1) / 2);
+      while (index > 0 && this.heap[index] > this.heap[parentIndex]) {
+        [this.heap[index], this.heap[parentIndex]] = [this.heap[parentIndex], this.heap[index]];
+        index = parentIndex;
+        parentIndex = Math.floor((index - 1) / 2);
+      }
+    }
+
+    pop() {
+      if (this.length === 0) return null;
+      const maxValue = this.heap[0];
+      this.heap[0] = this.heap[this.length - 1];
+      this.heap.pop();
+      this.length--;
+      this.heapifyDown(0);
+      return maxValue;
+    }
+
+    heapifyDown(index) {
+      let leftChildIndex = index * 2 + 1;
+      let rightChildIndex = index * 2 + 2;
+      let largest = index;
+
+      if (leftChildIndex < this.length && this.heap[leftChildIndex] > this.heap[largest]) {
+        largest = leftChildIndex;
+      }
+      if (rightChildIndex < this.length && this.heap[rightChildIndex] > this.heap[largest]) {
+        largest = rightChildIndex;
+      }
+
+      if (largest !== index) {
+        [this.heap[index], this.heap[largest]] = [this.heap[largest], this.heap[index]];
+        this.heapifyDown(largest);
+      }
+    }
+  }
+
+  const maxHeap = new MaxHeap();
+
+  for (let work of works) {
+    maxHeap.push(work);
+  }
+
+  while (n > 0) {
+    const max = maxHeap.pop();
+    if (max === 0) break;
+    maxHeap.push(max - 1);
+    n--;
+  }
+
+  return maxHeap.getAnswer();
+}
