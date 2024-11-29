@@ -12,11 +12,7 @@ function solution(triangle) {
 
     for(let i = 2; i < triangle.length; i++){
         for(let j = 1; j < i; j++){
-            if(dp[i-1][j-1]+triangle[i][j]>dp[i-1][j]+triangle[i][j]){
-                dp[i][j]=dp[i-1][j-1]+triangle[i][j]
-            }else{
-                dp[i][j]=dp[i-1][j]+triangle[i][j]
-            }
+            dp[i][j] = triangle[i][j] + Math.max(dp[i-1][j-1], dp[i-1][j]);
         }
     }
     
