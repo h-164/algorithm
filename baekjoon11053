@@ -1,0 +1,23 @@
+const fs = require("fs");
+const filePath =
+  process.platform === "linux" ? "/dev/stdin" : __dirname + "/example.txt";
+
+const input = fs.readFileSync(filePath).toString().trim().split("\n");
+
+const length = Number(input.shift());
+const arr = input.shift().split(" ").map(Number);
+let dp = new Array(length).fill(1);
+
+dp[0] = 1;
+
+for (let i = 1; i < length; i++) {
+  let max = 0;
+  for (let j = 0; j < i; j++) {
+    if (arr[j] < arr[i]) {
+      max = Math.max(max, dp[j]);
+    }
+  }
+  dp[i] += max;
+}
+
+console.log(Math.max(...dp));
